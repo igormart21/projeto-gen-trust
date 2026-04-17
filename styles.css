@@ -105,6 +105,15 @@ body {
   color: var(--text-primary);
 }
 
+.brand-logo {
+  display: block;
+  height: 36px;
+  width: auto;
+  max-width: min(220px, 52vw);
+  object-fit: contain;
+  object-position: left center;
+}
+
 .brand-mark {
   width: 34px;
   height: 34px;
@@ -892,6 +901,11 @@ td {
   .brand {
     justify-content: flex-start;
     min-width: 0;
+  }
+
+  .brand-logo {
+    height: 30px;
+    max-width: min(180px, 46vw);
   }
 
   .topbar__toggle {
