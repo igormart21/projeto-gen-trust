@@ -11,76 +11,80 @@
     rel="stylesheet"
   >
   <link rel="stylesheet" href="./styles.css?v=gt-20260220">
-  <link rel="stylesheet" href="./admin.css?v=gt-20260217">
+  <link rel="stylesheet" href="./admin.css?v=gt-20260222">
 </head>
 <body>
-  <main class="admin container">
+  <div class="admin-login" id="adminLoginGate">
+    <div class="admin-login__card glass-card">
+      <p class="eyebrow">Acesso restrito</p>
+      <h1>Painel Superadmin</h1>
+      <p>Somente pessoas autorizadas podem gerenciar produtos e conteúdo da vitrine.</p>
+      <form id="adminLoginForm" class="admin-login__form">
+        <label for="adminUsername">Usuário</label>
+        <input id="adminUsername" type="text" autocomplete="username" required autocapitalize="none" spellcheck="false">
+        <label for="adminPassword">Senha</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required>
+        <button class="btn btn-primary" type="submit">Entrar no painel</button>
+      </form>
+      <p class="admin-login__hint" id="adminLoginHint"></p>
+    </div>
+  </div>
+
+  <main class="admin container is-hidden" id="adminApp">
     <header class="admin-head glass-card">
       <div>
-        <p class="eyebrow">GT Admin</p>
-        <h1>Painel de Produtos</h1>
-        <p>Edite os produtos do site institucional e da tabela premium (textos e preços).</p>
+        <p class="eyebrow">GT Superadmin</p>
+        <h1>Gestão profissional do catálogo</h1>
+        <p>Painel organizado por abas para controle de produtos, imagens e segurança.</p>
       </div>
       <div class="admin-head-actions">
-        <a class="btn btn-outline" href="./index.html">Voltar ao Site</a>
-        <button class="btn btn-ghost" id="resetDefaultsButton" type="button">Restaurar padrão</button>
+        <a class="btn btn-outline" href="./index.html">Voltar ao site</a>
+        <button class="btn btn-ghost" id="resetDefaultsButton" type="button">Restaurar catálogo padrão</button>
+        <button class="btn btn-outline" id="logoutButton" type="button">Sair</button>
       </div>
     </header>
 
-    <section class="admin-grid">
-      <article class="glass-card admin-card">
-        <h2>Cadastrar / Editar Produto</h2>
-        <form id="productForm" class="admin-form">
-          <input type="hidden" id="productId">
-          <label>
-            Nome do produto
-            <input id="name" type="text" required>
-          </label>
-          <label>
-            Descricao curta
-            <textarea id="description" rows="3" required></textarea>
-          </label>
-          <div class="admin-row">
-            <label>
-              Badge
-              <input id="badge" type="text" required>
-            </label>
-            <label>
-              Categoria
-              <input id="category" type="text" required placeholder="Peptídeos, Hormônios & CIA, Medicamentos">
-            </label>
-          </div>
-          <div class="admin-row">
-            <label>
-              Dosagem
-              <input id="dosage" type="text" required placeholder="ex: 10 mg, 10 ml">
-            </label>
-            <label>
-              Preço (R$)
-              <input id="price" type="number" min="0" step="1" required>
-            </label>
-          </div>
-          <label>
-            Benefício
-            <input id="benefit" type="text" required>
-          </label>
-          <label>
-            Aplicação
-            <input id="application" type="text" required>
-          </label>
-          <label class="checkbox">
-            <input id="limitedStock" type="checkbox">
-            Estoque limitado
-          </label>
-          <div class="admin-form-actions">
-            <button class="btn btn-primary" type="submit">Salvar Produto</button>
-            <button class="btn btn-outline" id="cancelEditButton" type="button">Cancelar</button>
-          </div>
-        </form>
-      </article>
+    <nav class="admin-tabs glass-card" aria-label="Navegação do painel">
+      <button type="button" class="admin-tab is-active" data-tab-target="overview">Visão geral</button>
+      <button type="button" class="admin-tab" data-tab-target="products">Produtos</button>
+      <button type="button" class="admin-tab" data-tab-target="add">Adicionar produto</button>
+      <button type="button" class="admin-tab" data-tab-target="edit">Editar produto</button>
+      <button type="button" class="admin-tab" data-tab-target="security">Segurança</button>
+    </nav>
 
+    <section class="admin-pane is-active" id="pane-overview">
+      <div class="admin-overview-grid">
+        <article class="glass-card metric-card">
+          <p class="label">Total de produtos</p>
+          <p class="value" id="metricTotalProducts">0</p>
+          <p class="delta" id="metricLimited">0 com estoque limitado</p>
+        </article>
+        <article class="glass-card metric-card">
+          <p class="label">Faixa de preço</p>
+          <p class="value" id="metricPriceRange">—</p>
+          <p class="delta">Valores em BRL</p>
+        </article>
+        <article class="glass-card metric-card">
+          <p class="label">Categoria líder</p>
+          <p class="value" id="metricTopCategory">—</p>
+          <p class="delta">Com maior quantidade de itens</p>
+        </article>
+      </div>
       <article class="glass-card admin-card">
-        <h2>Produtos Cadastrados</h2>
+        <h2>Distribuição por categoria</h2>
+        <div id="categorySummary" class="category-summary"></div>
+      </article>
+    </section>
+
+    <section class="admin-pane" id="pane-products">
+      <article class="glass-card admin-card">
+        <div class="admin-card-head">
+          <div>
+            <h2>Produtos cadastrados</h2>
+            <p>Busque, visualize e abra a aba de edição para um item específico.</p>
+          </div>
+          <input id="productsSearch" class="admin-search" type="search" placeholder="Buscar por nome, categoria, dosagem...">
+        </div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -98,10 +102,64 @@
         </div>
       </article>
     </section>
+
+    <section class="admin-pane" id="pane-add">
+      <article class="glass-card admin-card">
+        <h2>Adicionar produto</h2>
+        <p class="admin-card-desc">Cadastre um novo produto preenchendo todas as informações e imagens.</p>
+        <form id="addProductForm" class="admin-form" novalidate></form>
+      </article>
+    </section>
+
+    <section class="admin-pane" id="pane-edit">
+      <article class="glass-card admin-card">
+        <h2>Editar produto</h2>
+        <p class="admin-card-desc">Selecione um item e edite apenas um produto por vez.</p>
+        <div class="admin-row">
+          <label>
+            Produto para editar
+            <select id="editProductSelect"></select>
+          </label>
+          <div class="admin-inline-actions">
+            <button type="button" class="btn btn-outline" id="refreshEditSelectButton">Atualizar lista</button>
+            <a class="btn btn-ghost" id="previewProductLink" href="./catalogo.html" target="_blank" rel="noreferrer">Ver produto</a>
+          </div>
+        </div>
+        <form id="editProductForm" class="admin-form" novalidate></form>
+        <div class="admin-form-actions">
+          <button class="btn btn-outline btn-danger" id="deleteCurrentProductButton" type="button">Excluir produto selecionado</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="admin-pane" id="pane-security">
+      <article class="glass-card admin-card">
+        <h2>Segurança do painel</h2>
+        <p class="admin-card-desc">Defina o usuário e a senha de acesso ao painel (somente pessoas autorizadas).</p>
+        <form id="securityForm" class="admin-form admin-form--narrow">
+          <label>
+            Usuário (login)
+            <input id="newAdminUsername" type="text" autocomplete="username" required minlength="3" maxlength="64" autocapitalize="none" spellcheck="false">
+          </label>
+          <label>
+            Nova senha
+            <input id="newAdminPassword" type="password" minlength="6" required>
+          </label>
+          <label>
+            Confirmar nova senha
+            <input id="confirmAdminPassword" type="password" minlength="6" required>
+          </label>
+          <div class="admin-form-actions">
+            <button class="btn btn-primary" type="submit">Atualizar login e senha</button>
+          </div>
+        </form>
+        <p class="admin-security-note" id="securityFeedback"></p>
+      </article>
+    </section>
   </main>
 
   <script src="./products-data.js?v=gt-20260221"></script>
   <script src="./catalog-core.js?v=gt-20260221"></script>
-  <script src="./admin.js?v=gt-20260216"></script>
+  <script src="./admin.js?v=gt-20260225"></script>
 </body>
 </html>
