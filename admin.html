@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>GT Admin — Produtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="./styles.css?v=gt-20260220">
+  <link rel="stylesheet" href="./admin.css?v=gt-20260217">
+</head>
+<body>
+  <main class="admin container">
+    <header class="admin-head glass-card">
+      <div>
+        <p class="eyebrow">GT Admin</p>
+        <h1>Painel de Produtos</h1>
+        <p>Edite os produtos do site institucional e da tabela premium (textos e preços).</p>
+      </div>
+      <div class="admin-head-actions">
+        <a class="btn btn-outline" href="./index.html">Voltar ao Site</a>
+        <button class="btn btn-ghost" id="resetDefaultsButton" type="button">Restaurar padrão</button>
+      </div>
+    </header>
+
+    <section class="admin-grid">
+      <article class="glass-card admin-card">
+        <h2>Cadastrar / Editar Produto</h2>
+        <form id="productForm" class="admin-form">
+          <input type="hidden" id="productId">
+          <label>
+            Nome do produto
+            <input id="name" type="text" required>
+          </label>
+          <label>
+            Descricao curta
+            <textarea id="description" rows="3" required></textarea>
+          </label>
+          <div class="admin-row">
+            <label>
+              Badge
+              <input id="badge" type="text" required>
+            </label>
+            <label>
+              Categoria
+              <input id="category" type="text" required placeholder="Peptídeos, Hormônios & CIA, Medicamentos">
+            </label>
+          </div>
+          <div class="admin-row">
+            <label>
+              Dosagem
+              <input id="dosage" type="text" required placeholder="ex: 10 mg, 10 ml">
+            </label>
+            <label>
+              Preço (R$)
+              <input id="price" type="number" min="0" step="1" required>
+            </label>
+          </div>
+          <label>
+            Benefício
+            <input id="benefit" type="text" required>
+          </label>
+          <label>
+            Aplicação
+            <input id="application" type="text" required>
+          </label>
+          <label class="checkbox">
+            <input id="limitedStock" type="checkbox">
+            Estoque limitado
+          </label>
+          <div class="admin-form-actions">
+            <button class="btn btn-primary" type="submit">Salvar Produto</button>
+            <button class="btn btn-outline" id="cancelEditButton" type="button">Cancelar</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="glass-card admin-card">
+        <h2>Produtos Cadastrados</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Dosagem</th>
+                <th>Preço</th>
+                <th>Badge</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTable"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="./products-data.js?v=gt-20260221"></script>
+  <script src="./catalog-core.js?v=gt-20260221"></script>
+  <script src="./admin.js?v=gt-20260216"></script>
+</body>
+</html>
