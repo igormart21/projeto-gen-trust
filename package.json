@@ -4,7 +4,8 @@
   "private": true,
   "description": "Site institucional GT GenTrust (HTML estatico)",
   "scripts": {
-    "dev": "python3 -m http.server 8080",
-    "start": "python3 -m http.server 8080"
+    "dev": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "start": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "dev:8787": "python3 -m http.server 8787 --bind 127.0.0.1"
   }
 }
