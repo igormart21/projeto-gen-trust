@@ -18,22 +18,22 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
   >
-  <link rel="stylesheet" href="./styles.css?v=gt-20260427">
+  <link rel="stylesheet" href="./styles.css?v=gt-20260426">
 </head>
-<body>
+<body data-i18n-page="home">
   <div class="site-bg-noise" aria-hidden="true"></div>
   <div class="site-glow site-glow--top" aria-hidden="true"></div>
   <div class="site-glow site-glow--bottom" aria-hidden="true"></div>
 
   <header class="topbar container" data-topbar>
     <div class="topbar__mobile-head">
-      <a class="brand" href="./index.html#inicio" aria-label="GENTRUST — GenTrust">
+      <a class="brand" href="./index.html#inicio" aria-label="GT Advance — GenTrust">
         <img
           class="brand-logo"
-          src="./assets/logo-gentrust.png"
-          width="200"
-          height="48"
-          alt="GENTRUST"
+          src="./assets/PHOTO-2026-04-23-12-31-17.png"
+          width="280"
+          height="72"
+          alt="GT Advance"
           decoding="async"
         >
       </a>
@@ -43,6 +43,7 @@
         id="topbarNavToggle"
         aria-expanded="false"
         aria-controls="topbarNav"
+        data-i18n-attr="aria-label|a11y_open_menu"
         aria-label="Abrir menu"
       >
         <i class="bi bi-list topbar__icon topbar__icon--open" aria-hidden="true"></i>
@@ -50,11 +51,11 @@
       </button>
     </div>
     <nav id="topbarNav" class="topbar-nav" aria-label="Menu principal">
-      <a href="./index.html#inicio">Início</a>
-      <a href="./catalogo.html">Catálogo</a>
-      <a href="./index.html#depoimentos">Depoimentos</a>
-      <a href="./index.html#diferenciais">Diferenciais</a>
-      <a href="./index.html#sobre">Sobre</a>
+      <a href="./index.html#inicio" data-i18n="nav_home">Início</a>
+      <a href="./catalogo.html" data-i18n="nav_catalog">Catálogo</a>
+      <a href="./calculadora-doses.html" data-i18n="nav_calc">Calculadora</a>
+      <a href="./index.html#diferenciais" data-i18n="nav_features">Diferenciais</a>
+      <a href="./index.html#sobre" data-i18n="nav_about">Sobre</a>
     </nav>
   </header>
 
@@ -64,14 +65,14 @@
       <div class="hero-shell__vignette" aria-hidden="true"></div>
       <div class="hero container">
         <div class="hero-content glass-card hero-content--enter">
-          <p class="eyebrow hero-enter hero-enter--1">Biotecnologia de performance</p>
-          <h1 id="hero-heading" class="hero-enter hero-enter--2">Produtos premium selecionados para quem exige performance</h1>
-          <p class="hero-subtitle hero-enter hero-enter--3">
+          <p class="eyebrow hero-enter hero-enter--1" data-i18n="hero_eyebrow">Biotecnologia de performance</p>
+          <h1 id="hero-heading" class="hero-enter hero-enter--2" data-i18n="hero_title">Produtos premium selecionados para quem exige performance</h1>
+          <p class="hero-subtitle hero-enter hero-enter--3" data-i18n="hero_sub">
             Peptídeos e protocolos de alta performance com padrão internacional.
             Curadoria premium para quem busca resultados acima do comum.
           </p>
           <div class="hero-actions hero-enter hero-enter--4">
-            <a class="btn btn-primary" href="./catalogo.html">Ver catálogo completo</a>
+            <a class="btn btn-primary" href="./catalogo.html" data-i18n="hero_cta">Ver catálogo completo</a>
           </div>
         </div>
       </div>
@@ -80,16 +81,16 @@
     <section class="section-band section-band--a" id="destaques">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Portfólio premium</p>
-          <h2>Conheça nossa linha em destaque</h2>
-          <p>
+          <p class="eyebrow" data-i18n="feat_eyebrow">Portfólio premium</p>
+          <h2 data-i18n="feat_title">Conheça nossa linha em destaque</h2>
+          <p data-i18n="feat_desc">
             Uma curadoria dos produtos que melhor representam o padrão GT: pureza, procedência e performance.
             Toque em qualquer item para ver a galeria, a ficha técnica e as características — ou siga para o catálogo completo.
           </p>
         </div>
         <div class="products-grid featured-grid" id="featuredProducts"></div>
         <p class="featured-cta">
-          <a class="btn btn-outline" href="./catalogo.html">Abrir catálogo completo</a>
+          <a class="btn btn-outline" href="./catalogo.html" data-i18n="feat_cta">Abrir catálogo completo</a>
         </p>
       </div>
     </section>
@@ -97,59 +98,40 @@
     <section class="section-band section-band--b" id="diferenciais">
       <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Diferenciais GT</p>
-        <h2>Confiança, ciência e execução global</h2>
+        <p class="eyebrow" data-i18n="diff_eyebrow">Diferenciais GT</p>
+        <h2 data-i18n="diff_title">Confiança, ciência e execução global</h2>
       </div>
       <div class="highlights-grid">
         <article class="highlight-card">
           <i class="bi bi-capsule" aria-hidden="true"></i>
-          <h3>Alta pureza e procedência</h3>
-          <p>Produtos com padrão farmacêutico internacional e rastreabilidade.</p>
+          <h3 data-i18n="diff1_t">Alta pureza e procedência</h3>
+          <p data-i18n="diff1_p">Produtos com padrão farmacêutico internacional e rastreabilidade.</p>
         </article>
         <article class="highlight-card">
           <i class="bi bi-graph-up" aria-hidden="true"></i>
-          <h3>Protocolos otimizados</h3>
-          <p>Estruturas focadas em performance, recomposição e recuperação.</p>
+          <h3 data-i18n="diff2_t">Protocolos otimizados</h3>
+          <p data-i18n="diff2_p">Estruturas focadas em performance, recomposição e recuperação.</p>
         </article>
         <article class="highlight-card">
           <i class="bi bi-shield-check" aria-hidden="true"></i>
-          <h3>Qualidade controlada</h3>
-          <p>Curadoria técnica com foco em consistência de resultado.</p>
+          <h3 data-i18n="diff3_t">Qualidade controlada</h3>
+          <p data-i18n="diff3_p">Curadoria técnica com foco em consistência de resultado.</p>
         </article>
         <article class="highlight-card">
           <i class="bi bi-globe" aria-hidden="true"></i>
-          <h3>Atendimento global</h3>
-          <p>Operação com foco no Brasil e suporte para clientes internacionais.</p>
+          <h3 data-i18n="diff4_t">Atendimento global</h3>
+          <p data-i18n="diff4_p">Operação com foco no Brasil e suporte para clientes internacionais.</p>
         </article>
       </div>
-      </div>
-    </section>
-
-    <section class="section-band section-band--b testimonials" id="depoimentos">
-      <div class="container">
-        <div class="section-head testimonials__head">
-          <p class="eyebrow">Depoimentos</p>
-          <h2>Resultados reais de quem escolhe a GT</h2>
-          <p>
-            Relatos de clientes sobre qualidade, suporte e consistência dos nossos produtos premium em diferentes objetivos de performance.
-          </p>
-        </div>
-        <div class="testimonials__mask">
-          <div class="testimonials__columns">
-            <div class="testimonials-column" id="testimonialsCol1"></div>
-            <div class="testimonials-column testimonials-column--md" id="testimonialsCol2"></div>
-            <div class="testimonials-column testimonials-column--lg" id="testimonialsCol3"></div>
-          </div>
-        </div>
       </div>
     </section>
 
     <section class="section-band section-band--a" id="sobre">
       <div class="container">
       <div class="about glass-card">
-        <p class="eyebrow">Sobre a GT — GenTrust</p>
-        <h2>Autoridade técnica para um mercado de alta exigência</h2>
-        <p>
+        <p class="eyebrow" data-i18n="about_eyebrow">Sobre a GT — GenTrust</p>
+        <h2 data-i18n="about_title">Autoridade técnica para um mercado de alta exigência</h2>
+        <p data-i18n="about_p">
           A GenTrust conecta tecnologia aplicada à performance humana com um
           processo de seleção rigoroso. Trabalhamos com peptídeos e linha hormonal
           de alto padrão, posicionamento premium e atendimento estratégico para
@@ -162,9 +144,9 @@
     <section class="section-band section-band--b section-band--cta" id="contato">
       <div class="container">
       <div class="cta-box">
-        <p class="eyebrow">Acompanhamento consultivo</p>
-        <h2>Fale com um especialista GT</h2>
-        <p>
+        <p class="eyebrow" data-i18n="cta_eyebrow">Acompanhamento consultivo</p>
+        <h2 data-i18n="cta_title">Fale com um especialista GT</h2>
+        <p data-i18n="cta_p">
           Converse com nosso time e receba uma recomendação personalizada de produtos e protocolos
           para o seu objetivo de performance, com orientação clara e segura.
         </p>
@@ -173,7 +155,7 @@
             <i class="bi bi-whatsapp"></i>
           </span>
           <span class="btn__spacer" aria-hidden="true"></span>
-          <span class="btn__label">Falar com especialista</span>
+          <span class="btn__label" data-i18n="cta_btn">Falar com especialista</span>
         </a>
       </div>
       </div>
@@ -182,15 +164,15 @@
 
   <footer class="footer container">
     <div class="footer-brand">
-      <p class="footer-title">GT GenTrust</p>
-      <p class="footer-description">
+      <p class="footer-title" data-i18n="footer_title">GT GenTrust</p>
+      <p class="footer-description" data-i18n="footer_desc">
         Catálogo premium de peptídeos e protocolos de alta performance.
         Curadoria técnica, atendimento consultivo e posicionamento global.
       </p>
     </div>
 
     <div class="footer-contact">
-      <p class="footer-label">Canais oficiais</p>
+      <p class="footer-label" data-i18n="footer_label">Canais oficiais</p>
       <div class="footer-links">
         <a href="https://wa.me/5545998432312" target="_blank" rel="noreferrer" aria-label="WhatsApp GT GenTrust">
           <i class="bi bi-whatsapp" aria-hidden="true"></i>
@@ -203,7 +185,7 @@
       </div>
       <p class="footer-note">
         <i class="bi bi-globe2" aria-hidden="true"></i>
-        Atendimento global com foco no Brasil
+        <span data-i18n="footer_note">Atendimento global com foco no Brasil</span>
       </p>
     </div>
   </footer>
@@ -211,9 +193,10 @@
   <script src="./products-data.js?v=gt-20260221"></script>
   <script src="./catalog-core.js?v=gt-20260221"></script>
   <script src="./cart-core.js?v=gt-20260219"></script>
-  <script src="./cart-ui.js?v=gt-20260219"></script>
-  <script src="./hero-canvas.js?v=gt-20260216"></script>
-  <script src="./app.js?v=gt-20260220"></script>
-  <script src="./nav-mobile.js?v=gt-20260218"></script>
+  <script src="./i18n.js?v=gt-20260427"></script>
+  <script src="./cart-ui.js?v=gt-20260425"></script>
+  <script src="./hero-canvas.js?v=gt-20260423"></script>
+  <script src="./app.js?v=gt-20260425"></script>
+  <script src="./nav-mobile.js?v=gt-20260425"></script>
 </body>
 </html>

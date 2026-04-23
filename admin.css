@@ -22,17 +22,17 @@
 .admin-login__logo {
   display: block;
   margin: 0 auto 14px;
-  height: 42px;
+  height: 46px;
   width: auto;
-  max-width: min(240px, 85%);
+  max-width: min(272px, 90%);
   object-fit: contain;
 }
 
 .admin-head__logo {
   display: block;
-  height: 36px;
+  height: 40px;
   width: auto;
-  max-width: 200px;
+  max-width: min(312px, 95%);
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -328,6 +328,67 @@
 
 .admin-security-note.is-ok {
   color: #a7f07a;
+}
+
+.admin-field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-field-block > label[for] {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.admin-image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.admin-form label.admin-upload-btn {
+  flex-direction: row;
+  align-items: center;
+  width: auto;
+  align-self: flex-start;
+  margin: 0;
+}
+
+.admin-upload-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.admin-image-upload__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  max-width: 62ch;
+}
+
+.admin-image-upload__status {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.admin-image-upload__status.is-error {
+  color: #ff9b9b;
 }
 
 @media (max-width: 1000px) {

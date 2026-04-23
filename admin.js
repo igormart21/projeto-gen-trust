@@ -180,6 +180,93 @@ function activateTab(tabKey) {
   }
 }
 
+function imageFileToStoredDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("read"));
+    reader.onload = () => {
+      const dataUrl = String(reader.result || "");
+      if (!dataUrl.startsWith("data:image")) {
+        resolve(dataUrl);
+        return;
+      }
+      const img = new Image();
+      img.onload = () => {
+        try {
+          let w = img.naturalWidth;
+          let h = img.naturalHeight;
+          const maxW = 1400;
+          if (w > maxW) {
+            h = Math.round((h * maxW) / w);
+            w = maxW;
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            resolve(dataUrl);
+            return;
+          }
+          if (String(file.type || "").toLowerCase() === "image/png") {
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, w, h);
+          }
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL("image/jpeg", 0.82));
+        } catch {
+          resolve(dataUrl);
+        }
+      };
+      img.onerror = () => resolve(dataUrl);
+      img.src = dataUrl;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function bindImageUpload(prefix) {
+  const ta = document.getElementById(`${prefix}Images`);
+  const input = document.getElementById(`${prefix}ImagesFile`);
+  const status = document.getElementById(`${prefix}ImagesStatus`);
+  if (!ta || !input) return;
+
+  function setStatus(msg, isError) {
+    if (!status) return;
+    status.textContent = msg || "";
+    status.classList.toggle("is-error", Boolean(isError));
+  }
+
+  input.addEventListener("change", async () => {
+    const files = Array.from(input.files || []);
+    input.value = "";
+    if (files.length === 0) return;
+
+    const maxBytes = 8 * 1024 * 1024;
+    for (let i = 0; i < files.length; i += 1) {
+      if (files[i].size > maxBytes) {
+        setStatus(`O arquivo "${files[i].name}" passa de 8 MB. Reduza ou comprima antes de enviar.`, true);
+        return;
+      }
+    }
+
+    setStatus(`Processando ${files.length} imagem(ns)…`, false);
+    try {
+      const urls = [];
+      for (let i = 0; i < files.length; i += 1) {
+        urls.push(await imageFileToStoredDataUrl(files[i]));
+      }
+      const existing = ta.value.trim();
+      const lines = existing ? existing.split("\n").map((x) => x.trim()).filter(Boolean) : [];
+      urls.forEach((u) => lines.push(u));
+      ta.value = lines.join("\n");
+      setStatus(`${urls.length} imagem(ns) adicionada(s) ao campo acima.`, false);
+    } catch {
+      setStatus("Não foi possível ler uma das imagens. Tente outro formato.", true);
+    }
+  });
+}
+
 function createProductFormMarkup(prefix) {
   return `
     <input type="hidden" id="${prefix}Id">
@@ -225,10 +312,24 @@ function createProductFormMarkup(prefix) {
       Aplicação
       <input id="${prefix}Application" type="text" required>
     </label>
-    <label>
-      Imagens (uma URL/caminho por linha)
-      <textarea id="${prefix}Images" rows="3" placeholder="./assets/capa.jpg&#10;https://..."></textarea>
-    </label>
+    <div class="admin-field-block">
+      <label for="${prefix}Images">Imagens (URL ou caminho por linha, ou envie arquivos)</label>
+      <textarea id="${prefix}Images" rows="4" placeholder="./assets/capa.jpg&#10;https://..."></textarea>
+      <div class="admin-image-upload">
+        <label class="btn btn-outline admin-upload-btn" for="${prefix}ImagesFile">Escolher imagens…</label>
+        <input
+          type="file"
+          id="${prefix}ImagesFile"
+          class="admin-upload-input"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          multiple
+        >
+        <p class="admin-image-upload__hint">
+          Os arquivos são convertidos e gravados neste navegador (localStorage). Imagens grandes são reduzidas automaticamente; evite dezenas de fotos pesadas para não estourar o limite de armazenamento.
+        </p>
+        <p class="admin-image-upload__status" id="${prefix}ImagesStatus" role="status" aria-live="polite"></p>
+      </div>
+    </div>
     <label>
       Características (uma por linha)
       <textarea id="${prefix}Characteristics" rows="4" placeholder="Categoria: Peptídeos&#10;Envio sigiloso..."></textarea>
@@ -415,6 +516,9 @@ function saveAll(nextProducts) {
 
 addForm.innerHTML = createProductFormMarkup("add");
 editForm.innerHTML = createProductFormMarkup("edit");
+
+bindImageUpload("add");
+bindImageUpload("edit");
 
 const addRefs = getFormRefs("add");
 const editRefs = getFormRefs("edit");

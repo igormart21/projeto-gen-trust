@@ -4,6 +4,15 @@
 
   const { readProducts, formatBRL, productDetailHref, orderedCategories } = C;
 
+  function T(key) {
+    return window.GT_i18n ? window.GT_i18n.t(key) : key;
+  }
+
+  function labelCategory(cat) {
+    if (cat === "Todos") return T("cat_all");
+    return cat;
+  }
+
   let filterListenerAttached = false;
 
   function renderFilters(products, onFiltered) {
@@ -16,7 +25,7 @@
       const button = document.createElement("button");
       button.type = "button";
       button.className = `filter-chip${index === 0 ? " active" : ""}`;
-      button.textContent = category;
+      button.textContent = labelCategory(category);
       button.dataset.category = category;
       filterContainer.appendChild(button);
     });
@@ -50,6 +59,7 @@
       const card = document.createElement("article");
       const nudgedCoverClass = product.id === "gt-p014" ? " product-card--cover-up" : "";
       card.className = `product-card product-card--clickable${nudgedCoverClass}`;
+      const stockText = product.limitedStock ? T("stock_low") : T("stock_on_request");
       card.innerHTML = `
         <a class="product-card__cover" href="${productDetailHref(product.id)}">
           <img src="${thumb}" alt="" loading="lazy" width="640" height="360">
@@ -58,15 +68,15 @@
           <div class="product-top">
             <span class="badge">${product.badge}</span>
             <span class="stock-pill ${product.limitedStock ? "low" : ""}">
-              ${product.limitedStock ? "Estoque limitado" : "Sob consulta"}
+              ${stockText}
             </span>
           </div>
           <h3><a href="${productDetailHref(product.id)}">${product.name}</a></h3>
           <p class="product-meta">${product.dosage} · <span class="product-price">${formatBRL(product.price)}</span></p>
           <p class="product-card__excerpt">${product.description}</p>
           <div class="product-card__actions">
-            <a class="btn btn-primary" href="${productDetailHref(product.id)}">Ver detalhes</a>
-            <button type="button" class="btn btn-outline" data-add-cart="${product.id}">Adicionar ao carrinho</button>
+            <a class="btn btn-primary" href="${productDetailHref(product.id)}">${T("btn_view_details")}</a>
+            <button type="button" class="btn btn-outline" data-add-cart="${product.id}">${T("btn_add_cart")}</button>
           </div>
         </div>
       `;
@@ -90,8 +100,8 @@
         <td>${summary}</td>
         <td>
           <div class="table-actions-cell">
-            <a class="btn btn-outline" href="${productDetailHref(product.id)}">Detalhes</a>
-            <button type="button" class="btn btn-outline" data-add-cart="${product.id}">Adicionar</button>
+            <a class="btn btn-outline" href="${productDetailHref(product.id)}">${T("tbl_details")}</a>
+            <button type="button" class="btn btn-outline" data-add-cart="${product.id}">${T("tbl_add")}</button>
           </div>
         </td>
       `;
@@ -109,4 +119,5 @@
   }
 
   init();
+  window.addEventListener("gt:locale", init);
 })();

@@ -9,21 +9,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="./styles.css?v=gt-20260427">
+  <link rel="stylesheet" href="./styles.css?v=gt-20260426">
 </head>
-<body class="page-product">
+<body class="page-product" data-i18n-page="product">
   <div class="site-bg-noise" aria-hidden="true"></div>
   <div class="site-glow site-glow--top" aria-hidden="true"></div>
 
   <header class="topbar container" data-topbar>
     <div class="topbar__mobile-head">
-      <a class="brand" href="./index.html" aria-label="GENTRUST — GenTrust">
+      <a class="brand" href="./index.html" aria-label="GT Advance — GenTrust">
         <img
           class="brand-logo"
-          src="./assets/logo-gentrust.png"
-          width="200"
-          height="48"
-          alt="GENTRUST"
+          src="./assets/PHOTO-2026-04-23-12-31-17.png"
+          width="280"
+          height="72"
+          alt="GT Advance"
           decoding="async"
         >
       </a>
@@ -33,6 +33,7 @@
         id="topbarNavToggle"
         aria-expanded="false"
         aria-controls="topbarNav"
+        data-i18n-attr="aria-label|a11y_open_menu"
         aria-label="Abrir menu"
       >
         <i class="bi bi-list topbar__icon topbar__icon--open" aria-hidden="true"></i>
@@ -40,9 +41,10 @@
       </button>
     </div>
     <nav id="topbarNav" class="topbar-nav" aria-label="Menu principal">
-      <a href="./index.html">Início</a>
-      <a href="./catalogo.html">Catálogo</a>
-      <a href="./index.html#sobre">Sobre</a>
+      <a href="./index.html" data-i18n="nav_home">Início</a>
+      <a href="./catalogo.html" data-i18n="nav_catalog">Catálogo</a>
+      <a href="./calculadora-doses.html" data-i18n="nav_calc">Calculadora</a>
+      <a href="./index.html#sobre" data-i18n="nav_about">Sobre</a>
     </nav>
   </header>
 
@@ -57,20 +59,21 @@
 
   <footer class="footer container">
     <div class="footer-brand">
-      <p class="footer-title">GT GenTrust</p>
-      <p class="footer-description">Curadoria técnica e atendimento consultivo.</p>
+      <p class="footer-title" data-i18n="footer_title">GT GenTrust</p>
+      <p class="footer-description" data-i18n="prod_footer_desc">Curadoria técnica e atendimento consultivo.</p>
     </div>
     <div class="footer-links">
-      <a href="./catalogo.html">Voltar ao catálogo</a>
-      <a href="https://wa.me/5545998432312" target="_blank" rel="noreferrer">WhatsApp</a>
+      <a href="./catalogo.html" data-i18n="prod_footer_back">Voltar ao catálogo</a>
+      <a href="https://wa.me/5545998432312" target="_blank" rel="noreferrer" data-i18n="prod_footer_wa">WhatsApp</a>
     </div>
   </footer>
 
   <script src="./products-data.js?v=gt-20260221"></script>
   <script src="./catalog-core.js?v=gt-20260221"></script>
   <script src="./cart-core.js?v=gt-20260219"></script>
-  <script src="./cart-ui.js?v=gt-20260219"></script>
-  <script src="./product-detail.js?v=gt-20260219b"></script>
-  <script src="./nav-mobile.js?v=gt-20260218"></script>
+  <script src="./i18n.js?v=gt-20260427"></script>
+  <script src="./cart-ui.js?v=gt-20260425"></script>
+  <script src="./product-detail.js?v=gt-20260425"></script>
+  <script src="./nav-mobile.js?v=gt-20260425"></script>
 </body>
 </html>

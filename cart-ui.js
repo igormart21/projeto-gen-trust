@@ -5,6 +5,10 @@
 
   const { formatBRL } = Core;
 
+  function T(key) {
+    return window.GT_i18n ? window.GT_i18n.t(key) : key;
+  }
+
   let rootEl = null;
   let drawerEl = null;
   let backdropEl = null;
@@ -21,6 +25,22 @@
       .replace(/"/g, "&quot;");
   }
 
+  function refreshCartChrome() {
+    if (!window.GT_i18n) return;
+    const title = document.getElementById("cartDrawerTitle");
+    if (title) title.textContent = T("cart_title");
+    const closeBtn = document.getElementById("cartClose");
+    if (closeBtn) closeBtn.setAttribute("aria-label", T("cart_close"));
+    const fab = document.getElementById("cartFab");
+    if (fab) fab.setAttribute("aria-label", T("cart_open"));
+    const totalLbl = document.getElementById("cartTotalLabel");
+    if (totalLbl) totalLbl.textContent = T("cart_total_lbl");
+    const checkout = document.getElementById("cartCheckout");
+    if (checkout) checkout.textContent = T("cart_checkout");
+    const clearBtn = document.getElementById("cartClear");
+    if (clearBtn) clearBtn.textContent = T("cart_clear");
+  }
+
   function showToast() {
     let toast = document.querySelector(".cart-toast");
     if (!toast) {
@@ -29,7 +49,7 @@
       toast.setAttribute("role", "status");
       document.body.appendChild(toast);
     }
-    toast.textContent = "Adicionado ao carrinho";
+    toast.textContent = T("cart_toast");
     toast.classList.add("is-visible");
     window.clearTimeout(toastTimer);
     toastTimer = window.setTimeout(() => {
@@ -50,8 +70,7 @@
     const checkoutBtn = document.getElementById("cartCheckout");
 
     if (lines.length === 0) {
-      linesEl.innerHTML =
-        '<p class="cart-empty">Seu carrinho está vazio. Adicione produtos nas páginas do catálogo.</p>';
+      linesEl.innerHTML = `<p class="cart-empty">${escapeHtml(T("cart_empty"))}</p>`;
       totalEl.textContent = formatBRL(0);
       if (checkoutBtn) {
         checkoutBtn.classList.add("is-disabled");
@@ -66,9 +85,13 @@
     }
 
     const invalidNote =
-      invalid.length > 0
-        ? `<p class="cart-invalid">Alguns itens não estão mais no catálogo e foram omitidos do total.</p>`
-        : "";
+      invalid.length > 0 ? `<p class="cart-invalid">${escapeHtml(T("cart_invalid"))}</p>` : "";
+
+    const perUnit = escapeHtml(T("cart_per_unit"));
+    const alDec = escapeHtml(T("cart_dec"));
+    const alInc = escapeHtml(T("cart_inc"));
+    const alRem = escapeHtml(T("cart_remove"));
+    const remLabel = escapeHtml(T("cart_remove_short"));
 
     linesEl.innerHTML =
       invalidNote +
@@ -81,15 +104,15 @@
         <article class="cart-line" data-product-id="${id}">
           <div class="cart-line__info">
             <p class="cart-line__name">${name}</p>
-            <p class="cart-line__meta">${dose} · ${formatBRL(product.price)} / un.</p>
+            <p class="cart-line__meta">${dose} · ${formatBRL(product.price)} ${perUnit}</p>
           </div>
           <div class="cart-line__controls">
-            <button type="button" class="cart-qty-btn" data-cart-dec="${id}" aria-label="Diminuir quantidade">−</button>
+            <button type="button" class="cart-qty-btn" data-cart-dec="${id}" aria-label="${alDec}">−</button>
             <span class="cart-qty-val" aria-live="polite">${qty}</span>
-            <button type="button" class="cart-qty-btn" data-cart-inc="${id}" aria-label="Aumentar quantidade">+</button>
+            <button type="button" class="cart-qty-btn" data-cart-inc="${id}" aria-label="${alInc}">+</button>
           </div>
           <p class="cart-line__sub">${formatBRL(lineTotal)}</p>
-          <button type="button" class="cart-remove" data-cart-remove="${id}" aria-label="Remover item">Remover</button>
+          <button type="button" class="cart-remove" data-cart-remove="${id}" aria-label="${alRem}">${remLabel}</button>
         </article>`;
         })
         .join("");
@@ -133,15 +156,15 @@
     rootEl = document.createElement("div");
     rootEl.className = "cart-root";
     rootEl.innerHTML = `
-      <button type="button" class="cart-fab" id="cartFab" aria-label="Abrir carrinho" aria-expanded="false" aria-controls="cartDrawer">
+      <button type="button" class="cart-fab" id="cartFab" aria-label="${escapeHtml(T("cart_open"))}" aria-expanded="false" aria-controls="cartDrawer">
         <i class="bi bi-cart3" aria-hidden="true"></i>
         <span class="cart-fab__badge" id="cartBadge" hidden>0</span>
       </button>
       <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
       <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-labelledby="cartDrawerTitle">
         <div class="cart-drawer__head">
-          <h2 id="cartDrawerTitle" class="cart-drawer__title">Carrinho</h2>
-          <button type="button" class="cart-drawer__close" id="cartClose" aria-label="Fechar carrinho">
+          <h2 id="cartDrawerTitle" class="cart-drawer__title">${escapeHtml(T("cart_title"))}</h2>
+          <button type="button" class="cart-drawer__close" id="cartClose" aria-label="${escapeHtml(T("cart_close"))}">
             <i class="bi bi-x-lg" aria-hidden="true"></i>
           </button>
         </div>
@@ -150,13 +173,13 @@
         </div>
         <div class="cart-drawer__footer">
           <div class="cart-total-row">
-            <span>Total estimado</span>
+            <span id="cartTotalLabel">${escapeHtml(T("cart_total_lbl"))}</span>
             <strong id="cartTotal">${formatBRL(0)}</strong>
           </div>
           <a class="btn btn-primary cart-checkout is-disabled" id="cartCheckout" href="#" target="_blank" rel="noreferrer">
-            Finalizar no WhatsApp
+            ${escapeHtml(T("cart_checkout"))}
           </a>
-          <button type="button" class="btn btn-ghost cart-clear" id="cartClear">Esvaziar carrinho</button>
+          <button type="button" class="btn btn-ghost cart-clear" id="cartClear">${escapeHtml(T("cart_clear"))}</button>
         </div>
       </aside>
     `;
@@ -188,7 +211,7 @@
     });
 
     clearBtn.addEventListener("click", () => {
-      if (window.confirm("Esvaziar todo o carrinho?")) {
+      if (window.confirm(T("cart_confirm_clear"))) {
         Cart.clearCart();
         renderLines();
       }
@@ -246,11 +269,18 @@
     showToast();
   });
 
+  function onLocale() {
+    refreshCartChrome();
+    renderLines();
+  }
+
   function init() {
     inject();
+    refreshCartChrome();
     updateBadge(Cart.countItems());
     onCartChanged({ detail: { count: Cart.countItems() } });
     window.addEventListener("gt-cart-changed", onCartChanged);
+    window.addEventListener("gt:locale", onLocale);
   }
 
   if (document.readyState === "loading") {

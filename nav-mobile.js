@@ -6,11 +6,19 @@
 
   const mq = window.matchMedia("(max-width: 720px)");
 
+  function menuOpenLabel() {
+    return window.GT_i18n ? window.GT_i18n.t("a11y_close_menu") : "Fechar menu";
+  }
+
+  function menuClosedLabel() {
+    return window.GT_i18n ? window.GT_i18n.t("a11y_open_menu") : "Abrir menu";
+  }
+
   function setOpen(open) {
     const isMobile = mq.matches;
     header.classList.toggle("topbar--nav-open", open && isMobile);
     toggle.setAttribute("aria-expanded", open && isMobile ? "true" : "false");
-    toggle.setAttribute("aria-label", open && isMobile ? "Fechar menu" : "Abrir menu");
+    toggle.setAttribute("aria-label", open && isMobile ? menuOpenLabel() : menuClosedLabel());
     document.body.classList.toggle("topbar-menu-open", Boolean(open && isMobile));
   }
 
@@ -26,6 +34,7 @@
 
   nav.addEventListener("click", function (e) {
     if (e.target instanceof HTMLElement && e.target.closest("a")) close();
+    if (e.target instanceof HTMLElement && e.target.closest(".lang-btn")) close();
   });
 
   document.addEventListener("keydown", function (e) {
@@ -40,6 +49,11 @@
 
   mq.addEventListener("change", function () {
     if (!mq.matches) close();
+  });
+
+  window.addEventListener("gt:locale", function () {
+    const open = header.classList.contains("topbar--nav-open");
+    setOpen(open);
   });
 
   close();

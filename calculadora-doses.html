@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Calculadora de doses | GT — GenTrust</title>
+  <meta name="description" content="Ferramenta educativa para conversão entre mg, ml e UI (seringa U-100). Uso informativo — não substitui orientação médica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./styles.css?v=gt-20260427">
+</head>
+<body class="page-dose-calc" data-i18n-page="calculator">
+  <div class="site-bg-noise" aria-hidden="true"></div>
+  <div class="site-glow site-glow--top" aria-hidden="true"></div>
+  <div class="site-glow site-glow--bottom" aria-hidden="true"></div>
+
+  <header class="topbar container" data-topbar>
+    <div class="topbar__mobile-head">
+      <a class="brand" href="./index.html" aria-label="GT Advance — GenTrust">
+        <img
+          class="brand-logo"
+          src="./assets/PHOTO-2026-04-23-12-31-17.png"
+          width="280"
+          height="72"
+          alt="GT Advance"
+          decoding="async"
+        >
+      </a>
+      <button
+        type="button"
+        class="topbar__toggle"
+        id="topbarNavToggle"
+        aria-expanded="false"
+        aria-controls="topbarNav"
+        data-i18n-attr="aria-label|a11y_open_menu"
+        aria-label="Abrir menu"
+      >
+        <i class="bi bi-list topbar__icon topbar__icon--open" aria-hidden="true"></i>
+        <i class="bi bi-x-lg topbar__icon topbar__icon--close" aria-hidden="true"></i>
+      </button>
+    </div>
+    <nav id="topbarNav" class="topbar-nav" aria-label="Menu principal">
+      <a href="./index.html" data-i18n="nav_home">Início</a>
+      <a href="./catalogo.html" data-i18n="nav_catalog">Catálogo</a>
+      <a href="./calculadora-doses.html" aria-current="page" data-i18n="nav_calc">Calculadora</a>
+      <a href="./index.html#sobre" data-i18n="nav_about">Sobre</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section-band section-band--a page-dose-calc__hero">
+      <div class="container">
+        <p class="eyebrow dose-calc-eyebrow">
+          <i class="bi bi-calculator" aria-hidden="true"></i>
+          <span data-i18n="calc_hero_eyebrow">Ferramenta educativa</span>
+        </p>
+        <h1 class="dose-calc-title" data-i18n="calc_h1">Calculadora de doses</h1>
+        <p class="dose-calc-lead" data-i18n="calc_lead" data-i18n-html="true">
+          Conversão entre <strong>mg</strong>, <strong>ml</strong> e <strong>Unidades Internacionais (UI)</strong> para soluções com seringa
+          <strong>U-100</strong> (100 UI = 1 ml). Baseada apenas na matemática da concentração que você informar.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-band section-band--b">
+      <div class="container dose-calc-grid">
+        <article class="glass-card dose-calc-card">
+          <h2 class="dose-calc-card__title" data-i18n="calc_conc_title">Configure a concentração</h2>
+          <p class="dose-calc-muted" data-i18n="calc_conc_help">
+            Informe quantos mg do princípio ativo existem em quantos ml de solução.
+          </p>
+          <div class="dose-calc-row dose-calc-row--concentration">
+            <label class="dose-calc-field">
+              <span data-i18n="calc_unit_mg">mg</span>
+              <input type="number" id="concMg" min="0.0001" step="any" value="30" inputmode="decimal" />
+            </label>
+            <span class="dose-calc-per" aria-hidden="true" data-i18n="calc_per">por</span>
+            <label class="dose-calc-field">
+              <span data-i18n="calc_unit_ml">ml</span>
+              <input type="number" id="concMl" min="0.0001" step="any" value="1" inputmode="decimal" />
+            </label>
+          </div>
+          <p class="dose-calc-conc-out" id="concOut">Concentração: —</p>
+        </article>
+
+        <article class="glass-card dose-calc-card">
+          <h2 class="dose-calc-card__title" data-i18n="calc_dose_title">Dose desejada</h2>
+          <p class="dose-calc-muted" data-i18n="calc_dose_help">
+            Escolha a unidade e informe o valor. As demais unidades são calculadas automaticamente.
+          </p>
+          <div class="dose-calc-seg" role="tablist" data-i18n-attr="aria-label|calc_seg_aria" aria-label="Unidade da dose">
+            <button type="button" class="dose-calc-seg__btn is-active" data-unit="mg" role="tab" aria-selected="true" data-i18n="calc_unit_mg">mg</button>
+            <button type="button" class="dose-calc-seg__btn" data-unit="ui" role="tab" aria-selected="false" data-i18n="calc_seg_ui">UI</button>
+            <button type="button" class="dose-calc-seg__btn" data-unit="ml" role="tab" aria-selected="false" data-i18n="calc_unit_ml">ml</button>
+          </div>
+          <label class="dose-calc-field dose-calc-field--block">
+            <span id="doseInputLabel">Valor (mg)</span>
+            <input type="number" id="doseValue" min="0" step="any" value="2.5" inputmode="decimal" />
+          </label>
+        </article>
+
+        <article class="glass-card dose-calc-card dose-calc-card--wide">
+          <div class="dose-calc-syringe-head">
+            <h2 class="dose-calc-card__title">
+              <i class="bi bi-droplet-half" aria-hidden="true"></i>
+              <span data-i18n="calc_syringe_title">Seringa interativa U-100</span>
+            </h2>
+            <p class="dose-calc-muted dose-calc-muted--tight" data-i18n="calc_syringe_hint">
+              1 ml = 100 UI · arraste o controle ou clique na escala
+            </p>
+          </div>
+
+          <div class="dose-syringe" id="syringeWrap">
+            <div class="dose-syringe__barrel" id="syringeBarrel" aria-hidden="true">
+              <div class="dose-syringe__fluid" id="syringeFluid"></div>
+            </div>
+            <div class="dose-syringe__track-wrap">
+              <input
+                type="range"
+                id="syringeRange"
+                class="dose-syringe__range"
+                min="0"
+                max="100"
+                step="0.1"
+                value="8.33"
+                data-i18n-attr="aria-label|calc_range_aria"
+                aria-label="Ajustar dose em UI na seringa U-100 (0 a 100 UI)"
+              />
+              <div class="dose-syringe__ticks" aria-hidden="true">
+                <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span>
+                <span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="dose-calc-live" id="liveLine">Dose atual: —</p>
+          <p class="dose-calc-cap-note" id="capNote" hidden></p>
+        </article>
+
+        <div class="dose-calc-stats">
+          <article class="glass-card dose-stat">
+            <p class="dose-stat__label" data-i18n="calc_stat_mg">Dose (mg)</p>
+            <p class="dose-stat__value" id="outMg">—</p>
+          </article>
+          <article class="glass-card dose-stat">
+            <p class="dose-stat__label" data-i18n="calc_stat_ui">UI na seringa</p>
+            <p class="dose-stat__value" id="outUi">—</p>
+          </article>
+          <article class="glass-card dose-stat">
+            <p class="dose-stat__label" data-i18n="calc_stat_ml">Volume (ml)</p>
+            <p class="dose-stat__value" id="outMl">—</p>
+          </article>
+          <article class="glass-card dose-stat">
+            <p class="dose-stat__label" data-i18n="calc_stat_pct">% da seringa (100 UI)</p>
+            <p class="dose-stat__value" id="outPct">—</p>
+          </article>
+        </div>
+
+        <div class="dose-calc-actions">
+          <button type="button" class="btn btn-outline" id="btnClear" data-i18n="calc_btn_clear">Limpar</button>
+          <button type="button" class="btn btn-primary" id="btnCopy" data-i18n="calc_btn_copy">Copiar resumo</button>
+          <button type="button" class="btn btn-outline" id="btnExample" data-i18n="calc_btn_example">Ver exemplo</button>
+        </div>
+        <p class="dose-calc-copy-hint" id="copyHint" role="status" aria-live="polite"></p>
+
+        <article class="glass-card dose-calc-disclaimer">
+          <p class="dose-calc-disclaimer__title">
+            <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+            <span data-i18n="calc_disclaimer_title">Aviso importante</span>
+          </p>
+          <p data-i18n="calc_disclaimer_p" data-i18n-html="true">
+            Este conteúdo e a ferramenta têm finalidade exclusivamente <strong>educativa e informativa</strong>. Não substituem consulta,
+            diagnóstico, exames, laudos ou tratamento. Decisões clínicas exigem avaliação presencial e análise individualizada por
+            profissionais habilitados. Para qualquer conduta, consulte seu médico.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="./i18n.js?v=gt-20260427"></script>
+  <script src="./dose-calculator.js?v=gt-20260427"></script>
+  <script src="./nav-mobile.js?v=gt-20260427"></script>
+</body>
+</html>

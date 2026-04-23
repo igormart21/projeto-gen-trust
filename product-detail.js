@@ -4,6 +4,10 @@
 
   const { readProducts, formatBRL, productDetailHref, enrichProduct } = C;
 
+  function T(key) {
+    return window.GT_i18n ? window.GT_i18n.t(key) : key;
+  }
+
   function getIdFromQuery() {
     const params = new URLSearchParams(window.location.search);
     return params.get("id");
@@ -13,24 +17,24 @@
     const crumbs = document.getElementById("breadcrumbs");
     if (crumbs) {
       crumbs.innerHTML = `
-        <a href="./index.html">Início</a>
+        <a href="./index.html">${T("bc_home")}</a>
         <span class="bc-sep" aria-hidden="true">/</span>
-        <a href="./catalogo.html">Catálogo</a>
+        <a href="./catalogo.html">${T("bc_catalog")}</a>
         <span class="bc-sep" aria-hidden="true">/</span>
-        <span>Erro</span>
+        <span>${T("nf_error")}</span>
       `;
     }
     const root = document.getElementById("productRoot");
     if (!root) return;
     root.innerHTML = `
       <div class="container product-missing">
-        <p class="eyebrow">Produto</p>
-        <h1>Item não encontrado</h1>
-        <p>O link pode estar incorreto ou o produto foi removido do catálogo.</p>
-        <a class="btn btn-primary" href="./catalogo.html">Voltar ao catálogo</a>
+        <p class="eyebrow">${T("nf_eyebrow")}</p>
+        <h1>${T("nf_title")}</h1>
+        <p>${T("nf_desc")}</p>
+        <a class="btn btn-primary" href="./catalogo.html">${T("nf_btn")}</a>
       </div>
     `;
-    document.title = "Produto não encontrado | GT GenTrust";
+    document.title = T("nf_title_doc");
   }
 
   function setMainImage(src, alt) {
@@ -46,14 +50,14 @@
     const root = document.getElementById("productRoot");
     if (!root) return;
 
-    document.title = `${p.name} — GT GenTrust`;
+    document.title = `${p.name} ${T("product_suffix")}`;
 
     const crumbs = document.getElementById("breadcrumbs");
     if (crumbs) {
       crumbs.innerHTML = `
-        <a href="./index.html">Início</a>
+        <a href="./index.html">${T("bc_home")}</a>
         <span class="bc-sep" aria-hidden="true">/</span>
-        <a href="./catalogo.html">Catálogo</a>
+        <a href="./catalogo.html">${T("bc_catalog")}</a>
         <span class="bc-sep" aria-hidden="true">/</span>
         <span>${p.name}</span>
       `;
@@ -67,8 +71,8 @@
           <p class="product-detail__meta">${p.dosage} · <span class="product-price">${formatBRL(p.price)}</span></p>
           <p class="product-detail__lead">${p.description}</p>
           <div class="product-detail__cta">
-            <button type="button" class="btn btn-primary" data-add-cart="${p.id}">Adicionar ao carrinho</button>
-            <a class="btn btn-outline" href="./catalogo.html">Continuar comprando</a>
+            <button type="button" class="btn btn-primary" data-add-cart="${p.id}">${T("pd_add_cart")}</button>
+            <a class="btn btn-outline" href="./catalogo.html">${T("pd_continue")}</a>
           </div>
         </header>
 
@@ -77,23 +81,23 @@
             <div class="product-gallery__main">
               <img id="productMainImg" src="${p.images[0]}" alt="${p.name}" width="1200" height="675" loading="eager">
             </div>
-            <div class="product-gallery__thumbs" id="productThumbs" role="tablist" aria-label="Imagens do produto"></div>
+            <div class="product-gallery__thumbs" id="productThumbs" role="tablist" aria-label="${T("pd_gallery_aria")}"></div>
           </div>
 
           <aside class="product-aside">
             <div class="glass-card product-specs">
-              <h2>Ficha técnica</h2>
+              <h2>${T("pd_specs")}</h2>
               <dl class="spec-list">
-                <div><dt>Categoria</dt><dd>${p.category}</dd></div>
-                <div><dt>Dosagem</dt><dd>${p.dosage}</dd></div>
-                <div><dt>Preço</dt><dd>${formatBRL(p.price)}</dd></div>
-                <div><dt>Badge</dt><dd>${p.badge}</dd></div>
-                <div><dt>Foco</dt><dd>${p.benefit}</dd></div>
-                <div><dt>Contexto</dt><dd>${p.application}</dd></div>
+                <div><dt>${T("dt_category")}</dt><dd>${p.category}</dd></div>
+                <div><dt>${T("dt_dose")}</dt><dd>${p.dosage}</dd></div>
+                <div><dt>${T("dt_price")}</dt><dd>${formatBRL(p.price)}</dd></div>
+                <div><dt>${T("dt_badge")}</dt><dd>${p.badge}</dd></div>
+                <div><dt>${T("dt_focus")}</dt><dd>${p.benefit}</dd></div>
+                <div><dt>${T("dt_context")}</dt><dd>${p.application}</dd></div>
               </dl>
             </div>
             <div class="glass-card product-chars">
-              <h2>Características</h2>
+              <h2>${T("pd_chars")}</h2>
               <ul class="char-list" id="charList"></ul>
             </div>
           </aside>
@@ -128,17 +132,21 @@
   }
 
   const id = getIdFromQuery();
-  if (!id) {
-    renderNotFound();
-    return;
+
+  function boot() {
+    if (!id) {
+      renderNotFound();
+      return;
+    }
+    const products = readProducts();
+    const found = products.find((x) => x.id === id);
+    if (!found) {
+      renderNotFound();
+      return;
+    }
+    render(found);
   }
 
-  const products = readProducts();
-  const found = products.find((x) => x.id === id);
-  if (!found) {
-    renderNotFound();
-    return;
-  }
-
-  render(found);
+  boot();
+  window.addEventListener("gt:locale", boot);
 })();

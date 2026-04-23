@@ -14,9 +14,9 @@
   let logicH = 0;
 
   const COL = {
-    accent: "185, 241, 93",
-    gold: "214, 180, 126",
-    dim: "120, 140, 170"
+    accent: "111, 158, 230",
+    accentDeep: "98, 143, 214",
+    dim: "90, 120, 170"
   };
 
   class Particle {
@@ -75,10 +75,10 @@
       const y = Math.random() * (logicH - size * 2) + size;
       const directionX = (Math.random() - 0.5) * 0.35;
       const directionY = (Math.random() - 0.5) * 0.35;
-      const useGold = Math.random() > 0.62;
+      const useDeep = Math.random() > 0.62;
       const alpha = 0.35 + Math.random() * 0.45;
-      const color = useGold
-        ? `rgba(${COL.gold}, ${alpha})`
+      const color = useDeep
+        ? `rgba(${COL.accentDeep}, ${alpha})`
         : `rgba(${COL.accent}, ${alpha})`;
       particles.push(new Particle(x, y, directionX, directionY, size, color));
     }
@@ -103,7 +103,7 @@
         else ctx.lineTo(x, y);
       }
       ctx.strokeStyle =
-        strand === 0 ? `rgba(${COL.accent}, 0.3)` : `rgba(${COL.gold}, 0.24)`;
+        strand === 0 ? `rgba(${COL.accent}, 0.3)` : `rgba(${COL.accentDeep}, 0.26)`;
       ctx.stroke();
     }
 
@@ -145,7 +145,7 @@
           } else if ((a + b) % 3 === 0) {
             stroke = `rgba(${COL.accent}, ${opacity * 0.45})`;
           } else {
-            stroke = `rgba(${COL.gold}, ${opacity * 0.35})`;
+            stroke = `rgba(${COL.accentDeep}, ${opacity * 0.38})`;
           }
         } else if ((a + b) % 4 === 0) {
           stroke = `rgba(${COL.accent}, ${opacity * 0.4})`;
@@ -176,7 +176,7 @@
   }
 
   function clear() {
-    ctx.fillStyle = "rgba(6, 8, 12, 0.94)";
+    ctx.fillStyle = "rgba(6, 13, 27, 0.94)";
     ctx.fillRect(0, 0, logicW, logicH);
   }
 
