@@ -83,8 +83,6 @@
       hero_cta: "Ver catálogo completo",
       feat_eyebrow: "Portfólio premium",
       feat_title: "Conheça nossa linha em destaque",
-      feat_desc:
-        "Uma curadoria dos produtos que melhor representam o padrão GT: pureza, procedência e performance. Toque em qualquer item para ver a galeria, a ficha técnica e as características — ou siga para o catálogo completo.",
       feat_cta: "Abrir catálogo completo",
       diff_eyebrow: "Diferenciais GT",
       diff_title: "Confiança, ciência e execução global",
@@ -249,8 +247,6 @@
       hero_cta: "View full catalog",
       feat_eyebrow: "Premium portfolio",
       feat_title: "Explore our featured line",
-      feat_desc:
-        "A curated selection that best represents the GT standard: purity, provenance and performance. Tap any item for gallery, datasheet and specs — or go to the full catalog.",
       feat_cta: "Open full catalog",
       diff_eyebrow: "GT advantages",
       diff_title: "Trust, science and global execution",
@@ -415,8 +411,6 @@
       hero_cta: "Ver catálogo completo",
       feat_eyebrow: "Portafolio premium",
       feat_title: "Conoce nuestra línea destacada",
-      feat_desc:
-        "Una curaduría de los productos que mejor representan el estándar GT: pureza, procedencia y performance. Toca cualquier ítem para ver galería, ficha y características — o ve al catálogo completo.",
       feat_cta: "Abrir catálogo completo",
       diff_eyebrow: "Diferenciales GT",
       diff_title: "Confianza, ciencia y ejecución global",
