@@ -109,6 +109,7 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Peptídeos",
     benefit: "Recuperação",
     application: "Blend premium",
+    images: ["./assets/bpc-tb-10mg.png"],
     limitedStock: true
   },
   {
@@ -121,6 +122,7 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Peptídeos",
     benefit: "Blend premium",
     application: "Sob consultoria",
+    images: ["./assets/glow-70mg.png"],
     limitedStock: true
   },
   {
@@ -133,6 +135,7 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Peptídeos",
     benefit: "Blend premium",
     application: "Sob consultoria",
+    images: ["./assets/klow-80mg.png"],
     limitedStock: true
   },
   {
@@ -169,7 +172,7 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Peptídeos",
     benefit: "Energia celular",
     application: "Longevidade",
-    images: ["./assets/capa.jpg"],
+    images: ["./assets/nad-500mg.png"],
     limitedStock: true
   },
   {
@@ -266,6 +269,7 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Peptídeos",
     benefit: "GH combinado",
     application: "Blend premium",
+    images: ["./assets/cjc-1295-ipamorelin-10mg.png"],
     limitedStock: true
   },
   {
@@ -374,6 +378,7 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Hormônios & CIA",
     benefit: "Protocolo específico",
     application: "Sob prescrição",
+    images: ["./assets/pt-141-10mg.png"],
     limitedStock: false
   },
   {
@@ -422,6 +427,45 @@ window.GT_CATALOG_DEFAULTS = [
     category: "Medicamentos",
     benefit: "Diluição",
     application: "Uso único",
+    limitedStock: false
+  },
+  {
+    id: "gt-p028",
+    name: "Epithalon",
+    dosage: "10mg",
+    price: 0,
+    description: "Peptídeo.",
+    badge: "Peptídeo",
+    category: "Peptídeos",
+    benefit: "-",
+    application: "-",
+    images: ["./assets/epithalon-10mg.png"],
+    limitedStock: false
+  },
+  {
+    id: "gt-p029",
+    name: "Retatrutide",
+    dosage: "20mg",
+    price: 0,
+    description: "Peptídeo.",
+    badge: "Peptídeo",
+    category: "Peptídeos",
+    benefit: "-",
+    application: "-",
+    images: ["./assets/retatrutide-20mg.png"],
+    limitedStock: false
+  },
+  {
+    id: "gt-p030",
+    name: "Retatrutide",
+    dosage: "40mg",
+    price: 0,
+    description: "Peptídeo.",
+    badge: "Peptídeo",
+    category: "Peptídeos",
+    benefit: "-",
+    application: "-",
+    images: ["./assets/retatrutide-40mg.png"],
     limitedStock: false
   }
 ];
